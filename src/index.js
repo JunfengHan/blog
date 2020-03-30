@@ -1,17 +1,20 @@
+/*
+ * @Author: han
+ * @Date: 2020-03-29 17:52:31
+ * @LastEditTime: 2020-03-29 19:59:51
+ * @Description: Main Entry File
+ * @FilePath: /blog/src/index.js
+ */
 import React from 'react';
 import ReactDOM from 'react-dom';
-import './index.css';
+import './style.js';
 import App from './App';
-import * as serviceWorker from './serviceWorker';
+import GlobalStyle from './style.js';
 
 ReactDOM.render(
   <React.StrictMode>
+    <GlobalStyle/ >
     <App />
   </React.StrictMode>,
   document.getElementById('root')
 );
-
-// If you want your app to work offline and load faster, you can change
-// unregister() to register() below. Note this comes with some pitfalls.
-// Learn more about service workers: https://bit.ly/CRA-PWA
-serviceWorker.unregister();
