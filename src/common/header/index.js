@@ -24,7 +24,7 @@ import {
 	NAV_ACTIVE_TECHNOLOGY,
 	NAV_ACTIVE_PROJECT,
 	NAV_ACTIVE_PHOTO,
-} from '../../store/actionTypes';
+} from './store/actionTypes';
 
 // 没有state的无状态组件，性能更好
 const Header = (props) => {
