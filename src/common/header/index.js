@@ -1,7 +1,9 @@
 /*
  * @Description: Header Component
  */
-import React, { Component } from 'react';
+import React from 'react';
+// connect方法 连接容器组件和 store
+import { connect } from 'react-redux';
 import { CSSTransition } from 'react-transition-group';
 import {
 	HeaderWrapper,
@@ -15,116 +17,82 @@ import {
 	Button
 } from './style';
 
-class Header extends Component {
+import {
+	SEARCH_FOCUS,
+	SEARCH_BLUR,
+	NAV_ACTIVE_HOME,
+	NAV_ACTIVE_TECHNOLOGY,
+	NAV_ACTIVE_PROJECT,
+	NAV_ACTIVE_PHOTO,
+} from '../../store/actionTypes';
 
-	constructor(props) {
-		super(props);
-		this.state = {
-			focused: false,
-			navActive: {
-				home: true,
-				technology: false,
-				project: false,
-				photo: false
-			}
-		}
-		this.handleInputFocus = this.handleInputFocus.bind(this)
-		this.handleInputBlur = this.handleInputBlur.bind(this)
-		this.handleNavActiveHome = this.handleNavActiveHome.bind(this)
-		this.handleNavActiveTechnology = this.handleNavActiveTechnology.bind(this)
-		this.handleNavActiveProject = this.handleNavActiveProject.bind(this)
-		this.handleNavActivePhoto = this.handleNavActivePhoto.bind(this)
-	}
-
-	render() {
-		return (
-			<HeaderWrapper>
-				<Logo>legendBlog</Logo>
-				<Nav>
-					<NavItem className = { this.state.navActive.home ? 'navActive left' : 'left'} onClick = { this.handleNavActiveHome }>Home</NavItem>
-					<NavItem className = { this.state.navActive.technology ? 'navActive left' : 'left' } onClick = { this.handleNavActiveTechnology }>Technology</NavItem>
-					<NavItem className = { this.state.navActive.project ? 'navActive left' : 'left'} onClick = { this.handleNavActiveProject }>Project</NavItem>
-					<NavItem className = { this.state.navActive.photo ? 'navActive left' : 'left'} onClick = { this.handleNavActivePhoto }>Photo&Video</NavItem>
-					<SearchWraper>
-						<IconSearch className = { this.state.focused ? 'focused' : ''}></IconSearch>
-						<CSSTransition
-							in = { this.state.focused }
-							timeout = { 200 }
-							classNames = "searchSlide"
-						>
-							<NavSearch 
-								className = { this.state.focused ? 'focused' : ''}
-								onFocus = { this.handleInputFocus }
-								onBlur = { this.handleInputBlur}
-							></NavSearch>
-						</CSSTransition>
-					</SearchWraper>
-				</Nav>
-				<Addition>
-					<Button className="">Sign Up</Button>
-					<Button className="">Sign In</Button>
-					<Button className="write">Write</Button>
-				</Addition>
-			</HeaderWrapper>
-		);
-	}
-
-	handleInputFocus () {
-		this.setState({
-			focused: true
-		})
-	}
-
-	handleInputBlur () {
-		this.setState({
-			focused: false
-		})
-	}
-
-	handleNavActiveHome () {
-		this.setState({
-			navActive: {
-				home: true,
-				technology: false,
-				project: false,
-				photo: false
-			}
-		})
-	}
-
-	handleNavActiveTechnology () {
-		this.setState({
-			navActive: {
-				home: false,
-				technology: true,
-				project: false,
-				photo: false
-			}
-		})
-	}
-
-	handleNavActiveProject () {
-		this.setState({
-			navActive: {
-				home: false,
-				technology: false,
-				project: true,
-				photo: false
-			}
-		})
-	}
-
-	handleNavActivePhoto () {
-		this.setState({
-			navActive: {
-				home: false,
-				technology: false,
-				project: false,
-				photo: true
-			}
-		})
-	}
-	
+// 没有state的无状态组件，性能更好
+const Header = (props) => {
+	return (
+		<HeaderWrapper>
+			<Logo>legendBlog</Logo>
+			<Nav>
+				<NavItem className = { props.home ? 'navActive left' : 'left'} onClick = { props.handleNavActiveHome }>Home</NavItem>
+				<NavItem className = { props.technology ? 'navActive left' : 'left' } onClick = { props.handleNavActiveTechnology }>Technology</NavItem>
+				<NavItem className = { props.project ? 'navActive left' : 'left'} onClick = { props.handleNavActiveProject }>Project</NavItem>
+				<NavItem className = { props.photo ? 'navActive left' : 'left'} onClick = { props.handleNavActivePhoto }>Photo&Video</NavItem>
+				<SearchWraper>
+					<IconSearch className = { props.focused ? 'focused' : ''}></IconSearch>
+					<CSSTransition
+						in = { props.focused }
+						timeout = { 200 }
+						classNames = "searchSlide"
+					>
+						<NavSearch
+							className = { props.focused ? 'focused' : ''}
+							onFocus = { props.handleInputFocus }
+							onBlur = { props.handleInputBlur}
+						></NavSearch>
+					</CSSTransition>
+				</SearchWraper>
+			</Nav>
+			<Addition>
+				<Button className="">Sign Up</Button>
+				<Button className="">Sign In</Button>
+				<Button className="write">Write</Button>
+			</Addition>
+		</HeaderWrapper>
+	)
 }
 
-export default Header;
+// action 的生成器，用于生成 action
+const actionCreator = (actionType, dispatch) => {
+	return () => {
+		const action = {
+			type: actionType,
+		};
+		dispatch(action);
+	}
+}
+
+// 将 store 里的 state 映射到当前组件的 props 
+const mapStateToProps = (state) => {
+	return {
+		focused: state.focusReducer.focused,
+		home: state.navActiveReducer.home,
+		technology: state.navActiveReducer.technology,
+		project: state.navActiveReducer.project,
+		photo: state.navActiveReducer.photo
+	}
+}
+
+// dispatch 发送 action 到 props 的映射
+const mapDispatchToProps = (dispatch) => {
+	return {
+		// handleInputFocus: actionCreator(SEARCH_FOCUS, dispatch),
+		// handleInputBlur: actionCreator(SEARCH_BLUR, dispatch),
+		handleNavActiveHome: actionCreator(NAV_ACTIVE_HOME, dispatch),
+		handleNavActiveTechnology: actionCreator(NAV_ACTIVE_TECHNOLOGY, dispatch),
+		handleNavActiveProject: actionCreator(NAV_ACTIVE_PROJECT, dispatch),
+		handleNavActivePhoto: actionCreator(NAV_ACTIVE_PHOTO, dispatch),
+		handleInputFocus: () => dispatch({ type: SEARCH_FOCUS }),
+		handleInputBlur: () => dispatch({ type: SEARCH_BLUR }),
+	}
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(Header);
