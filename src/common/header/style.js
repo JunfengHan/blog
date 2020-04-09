@@ -1,9 +1,5 @@
 /*
- * @Author: han
- * @Date: 2020-03-29 20:44:20
- * @LastEditTime: 2020-04-05 22:24:48
  * @Description: Header Style
- * @FilePath: /blog/src/common/header/style.js
  */
 import styled from 'styled-components';
 import iconSearch from '../../statics/iconfont/search.svg';
@@ -11,6 +7,9 @@ import iconWrite from '../../statics/iconfont/write.svg';
 
 export const HeaderWrapper = styled.div`
   height: 56px;
+  background: #f08775;
+  color: #ffffff;
+  font-family: "Avenir Next", -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
 `;
 
 export const Logo = styled.a`
@@ -18,24 +17,29 @@ export const Logo = styled.a`
   top: 0;
   left: 0;
   display: block;
-  width: 100px;
+  width: 160px;
   height: 56px;
-  background: orange;
+  line-height: 56px;
+  text-align: center;
+  font-size: 18px;
 `;
 
 export const Nav = styled.div`
-  width: 960px;
+  min-width: 960px;
   height: 100%;
-  padding-right: 70px;
+  padding-left: 160px;
+  padding-right: 240px;
   margin: 0 auto;
   box-sizing: border-box;
 `;
 
 export const NavItem = styled.div`
+  height: 56px;
   line-height: 56px;
   padding: 0 15px;
   font-size: 16px;
-  color: #333;
+  box-sizing: border-box;
+  cursor: pointer;
   &.left {
     float: left;
   }
@@ -43,7 +47,7 @@ export const NavItem = styled.div`
     float: right;
     color: #969696;
   }
-  &.active {
+  &.navActive {
     background: #ea6f5a;
   }
 `;
@@ -52,15 +56,27 @@ export const SearchWraper = styled.div`
   float: right;
   margin-right: 130px;
   position: relative;
+  .searchSlide-enter {
+    transition: all .2s ease-out;
+  }
+  .searchSlide-enter-active {
+    width: 240px;
+  }
+  .searchSlide-exit {
+    transition: all .2s ease-out;
+  }
+  .searchSlide-exit-active {
+    width: 160px;
+  }
 `;
 
 export const NavSearch = styled.input.attrs({
-  placeholder: '搜索'
+  placeholder: 'Search'
 })`
   float: right;
   width: 160px;
   height: 38px;
-  padding: 0 20px;
+  padding: 0 35px 0 20px;
   margin-top: 9px;
   box-sizing: border-box;
   border: none;
@@ -68,8 +84,13 @@ export const NavSearch = styled.input.attrs({
   border-radius: 19px;
   background: #eee;
   font-size: 14px;
+  color: #777;
   &::placeholder {
     color: #999;
+  }
+  &.focused {
+    width: 240px;
+    
   }
 `;
 
@@ -84,7 +105,11 @@ export const IconSearch = styled.i`
   background-repeat: no-repeat;
   background-size: 26px;
   background-position: center;
-  background-color: green;
+  cursor:pointer;
+  &.focused {
+    background-color: #dddddd;
+    color: #fff;
+  }
 `;
 
 export const Addition = styled.div`
@@ -92,25 +117,21 @@ export const Addition = styled.div`
   right: 0;
   top: 0;
   height: 56px;
+  cursor:pointer;
 `;
 
 export const Button = styled.div`
   float: right;
   margin-top: 9px;
+  margin-left: 10px;
   margin-right: 20px;
   padding: 0 20px;
   line-height: 38px;
   border-radius: 19px;
   border: 1px solid #ec6149;
   font-size: 14px;
-  &.signIn {
-    color: #ec6149;
-  }
-  &.logIn {
-    color: #ec6149;
-  }
+  cursor:pointer;
   &.write {
-    color: #fff;
     padding-left: 34px;
     background: #ec6149;
     background-image: url(${iconWrite});

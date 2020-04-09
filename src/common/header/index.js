@@ -1,12 +1,8 @@
 /*
- * @Author: han
- * @Date: 2020-03-29 20:02:13
- * @LastEditTime: 2020-03-31 23:26:59
  * @Description: Header Component
- * @FilePath: /blog/src/common/header/index.js
  */
-
 import React, { Component } from 'react';
+import { CSSTransition } from 'react-transition-group';
 import {
 	HeaderWrapper,
 	Logo,
@@ -20,26 +16,115 @@ import {
 } from './style';
 
 class Header extends Component {
+
+	constructor(props) {
+		super(props);
+		this.state = {
+			focused: false,
+			navActive: {
+				home: true,
+				technology: false,
+				project: false,
+				photo: false
+			}
+		}
+		this.handleInputFocus = this.handleInputFocus.bind(this)
+		this.handleInputBlur = this.handleInputBlur.bind(this)
+		this.handleNavActiveHome = this.handleNavActiveHome.bind(this)
+		this.handleNavActiveTechnology = this.handleNavActiveTechnology.bind(this)
+		this.handleNavActiveProject = this.handleNavActiveProject.bind(this)
+		this.handleNavActivePhoto = this.handleNavActivePhoto.bind(this)
+	}
+
 	render() {
 		return (
 			<HeaderWrapper>
-				<Logo/>
+				<Logo>legendBlog</Logo>
 				<Nav>
-					<NavItem className="left active">首页</NavItem>
-					<NavItem className="left">下载App</NavItem>
+					<NavItem className = { this.state.navActive.home ? 'navActive left' : 'left'} onClick = { this.handleNavActiveHome }>Home</NavItem>
+					<NavItem className = { this.state.navActive.technology ? 'navActive left' : 'left' } onClick = { this.handleNavActiveTechnology }>Technology</NavItem>
+					<NavItem className = { this.state.navActive.project ? 'navActive left' : 'left'} onClick = { this.handleNavActiveProject }>Project</NavItem>
+					<NavItem className = { this.state.navActive.photo ? 'navActive left' : 'left'} onClick = { this.handleNavActivePhoto }>Photo&Video</NavItem>
 					<SearchWraper>
-						<IconSearch></IconSearch>
-						<NavSearch></NavSearch>
+						<IconSearch className = { this.state.focused ? 'focused' : ''}></IconSearch>
+						<CSSTransition
+							in = { this.state.focused }
+							timeout = { 200 }
+							classNames = "searchSlide"
+						>
+							<NavSearch 
+								className = { this.state.focused ? 'focused' : ''}
+								onFocus = { this.handleInputFocus }
+								onBlur = { this.handleInputBlur}
+							></NavSearch>
+						</CSSTransition>
 					</SearchWraper>
 				</Nav>
 				<Addition>
-					<Button className="logIn">登陆</Button>
-					<Button className="signIn">注册</Button>
-					<Button className="write">写文章</Button>
+					<Button className="">Sign Up</Button>
+					<Button className="">Sign In</Button>
+					<Button className="write">Write</Button>
 				</Addition>
 			</HeaderWrapper>
 		);
 	}
+
+	handleInputFocus () {
+		this.setState({
+			focused: true
+		})
+	}
+
+	handleInputBlur () {
+		this.setState({
+			focused: false
+		})
+	}
+
+	handleNavActiveHome () {
+		this.setState({
+			navActive: {
+				home: true,
+				technology: false,
+				project: false,
+				photo: false
+			}
+		})
+	}
+
+	handleNavActiveTechnology () {
+		this.setState({
+			navActive: {
+				home: false,
+				technology: true,
+				project: false,
+				photo: false
+			}
+		})
+	}
+
+	handleNavActiveProject () {
+		this.setState({
+			navActive: {
+				home: false,
+				technology: false,
+				project: true,
+				photo: false
+			}
+		})
+	}
+
+	handleNavActivePhoto () {
+		this.setState({
+			navActive: {
+				home: false,
+				technology: false,
+				project: false,
+				photo: true
+			}
+		})
+	}
+	
 }
 
 export default Header;
