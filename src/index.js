@@ -3,14 +3,14 @@
  */
 import React from 'react';
 import ReactDOM from 'react-dom';
-import './style.js';
+import './globalStyle.js';
 import App from './App';
-import GlobalStyle from './style.js';
+import GlobalStyle from './globalStyle.js';
 
 ReactDOM.render(
-  <React.StrictMode>
+  <React.Fragment>
     <GlobalStyle />
     <App />
-  </React.StrictMode>,
+  </React.Fragment>,
   document.getElementById('root')
 );

@@ -1,11 +1,3 @@
-/*
- * @Author: han
- * @Date: 2020-03-29 17:52:31
- * @LastEditTime: 2020-03-29 19:57:33
- * @Description: Global Style
- * @FilePath: /blog/src/style.js
- */
-
 import { createGlobalStyle } from 'styled-components'
 
 const GlobalStyle = createGlobalStyle`

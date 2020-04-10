@@ -5,15 +5,7 @@
  * 我们需要在生成 Store 时，将 Reducer 传入 createStore 方法
  * 4.reducer 是纯函数，不能对state做任何修改啊！！！有确定输出，必须返回一个确定的值
  */
-
-import {
-	SEARCH_FOCUS,
-	SEARCH_BLUR,
-	NAV_ACTIVE_HOME,
-	NAV_ACTIVE_TECHNOLOGY,
-	NAV_ACTIVE_PROJECT,
-	NAV_ACTIVE_PHOTO,
-} from './actionTypes';
+import { actionTypes } from './index'
 
 const focusState = {
 	focused: false,
@@ -29,13 +21,13 @@ const navState = {
 export const focusReducer = ( state = focusState, action) => {
 	let result = {};
 	switch (action.type) {
-		case SEARCH_FOCUS:
+		case actionTypes.SEARCH_FOCUS:
 			// 坑死了啊，reducer里千万别直接修改state，居然不报错，就是无法正常运行！！
 			result = Object.assign({}, state, {
         focused: true
       });
 			break;
-		case SEARCH_BLUR:
+		case actionTypes.SEARCH_BLUR:
 			result = Object.assign({}, state, {
         focused: false
       });
@@ -44,14 +36,13 @@ export const focusReducer = ( state = focusState, action) => {
 			return state;
 	}
 
-	console.log('reducer_state:', result);
   return result;
 }
 
 export const navActiveReducer = ( state = navState, action) => {
 	let result = {};
 	switch (action.type) {
-		case NAV_ACTIVE_HOME:
+		case actionTypes.NAV_ACTIVE_HOME:
 			result = Object.assign({}, state, {
 				home: true,
 				technology: false,
@@ -59,7 +50,7 @@ export const navActiveReducer = ( state = navState, action) => {
 				photo: false
 			})
 			break;
-		case NAV_ACTIVE_TECHNOLOGY:
+		case actionTypes.NAV_ACTIVE_TECHNOLOGY:
 			result = Object.assign({}, state, {
 				home: false,
 				technology: true,
@@ -67,7 +58,7 @@ export const navActiveReducer = ( state = navState, action) => {
 				photo: false
 			})
 			break;
-		case NAV_ACTIVE_PROJECT:
+		case actionTypes.NAV_ACTIVE_PROJECT:
 			result = Object.assign({}, state, {
 				home: false,
 				technology: false,
@@ -75,7 +66,7 @@ export const navActiveReducer = ( state = navState, action) => {
 				photo: false
 			})
 			break;
-		case NAV_ACTIVE_PHOTO:
+		case actionTypes.NAV_ACTIVE_PHOTO:
 			result = Object.assign({}, state, {
 				home: false,
 				technology: false,

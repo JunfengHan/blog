@@ -5,6 +5,7 @@ import React from 'react';
 // connect方法 连接容器组件和 store
 import { connect } from 'react-redux';
 import { CSSTransition } from 'react-transition-group';
+import { actionCreator, actionTypes } from './store';
 import {
 	HeaderWrapper,
 	Logo,
@@ -17,14 +18,6 @@ import {
 	Button
 } from './style';
 
-import {
-	SEARCH_FOCUS,
-	SEARCH_BLUR,
-	NAV_ACTIVE_HOME,
-	NAV_ACTIVE_TECHNOLOGY,
-	NAV_ACTIVE_PROJECT,
-	NAV_ACTIVE_PHOTO,
-} from './store/actionTypes';
 
 // 没有state的无状态组件，性能更好
 const Header = (props) => {
@@ -60,16 +53,6 @@ const Header = (props) => {
 	)
 }
 
-// action 的生成器，用于生成 action
-const actionCreator = (actionType, dispatch) => {
-	return () => {
-		const action = {
-			type: actionType,
-		};
-		dispatch(action);
-	}
-}
-
 // 将 store 里的 state 映射到当前组件的 props 
 const mapStateToProps = (state) => {
 	return {
@@ -86,12 +69,12 @@ const mapDispatchToProps = (dispatch) => {
 	return {
 		// handleInputFocus: actionCreator(SEARCH_FOCUS, dispatch),
 		// handleInputBlur: actionCreator(SEARCH_BLUR, dispatch),
-		handleNavActiveHome: actionCreator(NAV_ACTIVE_HOME, dispatch),
-		handleNavActiveTechnology: actionCreator(NAV_ACTIVE_TECHNOLOGY, dispatch),
-		handleNavActiveProject: actionCreator(NAV_ACTIVE_PROJECT, dispatch),
-		handleNavActivePhoto: actionCreator(NAV_ACTIVE_PHOTO, dispatch),
-		handleInputFocus: () => dispatch({ type: SEARCH_FOCUS }),
-		handleInputBlur: () => dispatch({ type: SEARCH_BLUR }),
+		handleNavActiveHome: actionCreator(actionTypes.NAV_ACTIVE_HOME, dispatch),
+		handleNavActiveTechnology: actionCreator(actionTypes.NAV_ACTIVE_TECHNOLOGY, dispatch),
+		handleNavActiveProject: actionCreator(actionTypes.NAV_ACTIVE_PROJECT, dispatch),
+		handleNavActivePhoto: actionCreator(actionTypes.NAV_ACTIVE_PHOTO, dispatch),
+		handleInputFocus: () => dispatch({ type: actionTypes.SEARCH_FOCUS }),
+		handleInputBlur: () => dispatch({ type: actionTypes.SEARCH_BLUR }),
 	}
 }
 
