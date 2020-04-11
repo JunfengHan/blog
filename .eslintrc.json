@@ -1,0 +1,95 @@
+{
+    // ESLint 检测文件步骤：
+    // 1.在检测文件同一目录里寻找.eslintrc.* 和 package.json
+    // 2.紧接着在父级目录寻找，一直到文件系统根目录
+    // 3.如果发现前两步有root:true,将停止在父目录里寻找.eslintrc
+    // 4.如果以上全部没找到，则退回到用户主目录 ～/.eslintrc 中的默认配置
+    "root": true,
+
+    // ESLint 默认解析器
+    "parser": "espree",
+
+    // 指定解析参数
+    "parserOptions": {
+        // 指定要使用的ECMAScript版本， 默认为5
+        "ecmaVersion": 6,
+        // 设置为script(默认)或 module (如果代码是ECMAScript模块)
+        "sourceType": "module",
+        // 使用额外的语言特性，默认全部为false
+        "ecmaFeatures": {
+            "modules": true,
+            // 允许全局作用域下使用return 语句
+            "globalReturn": false,
+            // 启用全局strict 模式（严格模式）
+            "impliedStrict": false,
+            // 启用JSX
+            "jsx": true,
+            // 启用对试验性的objectRest/spreadProperties特性
+            "experimentalObjectRestSpread": false
+        }
+    },
+
+    // 指定环境，不同环境可以预定义不同的全局变量
+    "env": {
+        // 效果配置同 ecmaVersion
+        "es6": true,
+        "browser": true,
+        "node": true,
+        "jquery": true
+    },
+
+    // 指定环境为我们提供了预设的全局变量
+    // true: 允许变量被重写， false不允变量许被重写
+    "globals": {
+        "globalVar1": false
+    },
+
+    // 具体规则配置
+    // off或0 -- 关闭规则
+    // warn或1 -- 警告级别
+    // error或2 -- 错误级别，会导致程序退出
+    // ESLint 规则列表： https://eslint.org/docs/rules/
+    "rules": {
+        // 使用“===” 或 “!==”
+        "eqeqeq": "warn",
+        "curly": 2,
+        // 如果某条规则有额外选项，可以使用数组指定
+        // 选项可以是字符串，也可以是对象
+        "quotes": ["error", "double"],
+        "one-var": ["error", {
+            "var": "always",
+            "let": "never",
+            "const": "never"
+        }],
+        // 配置插件提供的自定义规则,格式为：不带前缀的插件名+规则ID
+        "react/curly": "error"
+    },
+
+    // 共享设置，将提供给每一个将被执行的规则
+    "settings": {
+        "sharedData": "hello"
+    },
+
+    // extends属性值可以是一个字符串或字符串数组
+    // 数组中每个配置项继承它前面的配置
+    "extends": [
+        // 启用一系列核心规则，这些规则报告一些常见问题，即在(规则页面)中打勾的规则
+        "eslint: recommended",
+        // 一个可以输出配置对象的可共享配置包,如：eslint-config-standard
+        "standard",
+        // 一个输出配置规则的插件包
+        "plugin:react/recommeded",
+        // 一个指向配置文件的相对路径或绝对路径
+        "./node_modules/coding-standard/.eslintrc-es6",
+        // 启用当前安装的ESLint中所有的核心规则
+        "eslint:all"
+    ],
+
+    // ESLint 支持使用第三方插件，需要npm安装
+    //  plugin 和 extends区别： 除了提供预设的自定义规则之外，当你在eslint的规则里找不到合适的的时候，还可以借用插件来实现
+    "plugins": [
+        "eslint-plugin-airbnb",
+        // 插件可以省略“eslint-plugin-”前缀
+        "react"
+    ]
+}
