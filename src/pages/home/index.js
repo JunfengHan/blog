@@ -19,11 +19,20 @@ class Home extends Component {
                     <List className="articleList"></List>
                 </HomeLeft>
                 <HomeRight className="homeRight">
-                    <Tags className="tags"></Tags>
+                    <Tags 
+                        className="tags"
+                        clickTagItem = { this.onClickTag.bind(this)}
+                        url = "/api/tagsList.json"
+                    ></Tags>
                 </HomeRight>
                 <PageList></PageList>
             </HomeWrapper>
         )
+    }
+
+    // 标签点击事件回调
+    onClickTag (id) {
+        console.log('id:', id);
     }
 }
 
