@@ -46,7 +46,7 @@ const Header = (props) => {
 			</Nav>
 			<Addition>
 				<Button className="">Sign Up</Button>
-				<Button className="">Sign In</Button>
+				<Button className="">Log In</Button>
 				<Button className="write">Write</Button>
 			</Addition>
 		</HeaderWrapper>

@@ -21,7 +21,7 @@ class List extends Component {
 
 	render () {
     const wrapperStyle = {
-      width: this.state.width && this.state.width + 'px' || '100%'
+      width: this.state.width ? this.state.width + 'px' : '100%'
     };
 
     // 页数列表组件
