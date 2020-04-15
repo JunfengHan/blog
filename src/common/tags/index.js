@@ -3,12 +3,15 @@
  * 这里是 class 组件写法
  */
 import React, { Component } from 'react';
-import { TagsWrapper, TagsItem } from './style';
+import { TagsWrapper } from './style';
 import axios from 'axios';
+
+import TagItem from './tagItem';
 
 class Tags extends Component {
     constructor (props) {
         super(props);
+        this.onClickTagItem = this.onClickTagItem.bind(this);
 
         this.state = {
             data: props.data || [],
@@ -22,10 +25,14 @@ class Tags extends Component {
                 {
                     this.state.data.map((item) => {
                         return (
-                            <TagsItem key={item._id} onClick={ this.props.clickTagItem.bind(this, item._id) }>
-                                <span>{item.name}</span>
-                                <span>({item.count})</span>
-                            </TagsItem>
+                            <TagItem 
+                                key={item._id}
+                                id={item._id}
+                                name={item.name}
+                                count={item.count}
+                                clickTagItem = { this.onClickTagItem }
+                            >
+                            </TagItem>
                         )
                     })
                 }
@@ -63,6 +70,11 @@ class Tags extends Component {
         this.setState({
             data: data
         });
+    }
+
+    // tag 点击回调函数
+    onClickTagItem (id) {
+        console.log('id333:', id);
     }
 };
 

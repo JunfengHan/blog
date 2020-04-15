@@ -2,7 +2,8 @@ import styled from 'styled-components';
 
 export const TagsWrapper = styled.div`
     overflow: hidden;
-    padding: 20px 0 10px;
+    padding: 30px 0 50px;
+    border-left: 1px solid #eeeeee;
 `;
 
 export const TagsItem = styled.a`
@@ -13,6 +14,11 @@ export const TagsItem = styled.a`
     border-radius: 4px;
     color: #808080;
     font-family: '-apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol"';
-    background: #cccccc;
+    font-size: 14px;
+    background: #eeeeee;
     cursor: pointer;
+    &.active {
+        background: #f08775;
+        color: #ffffff;
+    }
 `;
