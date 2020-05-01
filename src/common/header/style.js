@@ -10,9 +10,21 @@ export const HeaderWrapper = styled.div`
   background: #f08775;
   color: #ffffff;
   font-family: "Avenir Next", -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+  a {
+    color: #ffffff;
+    :hover {
+      color: #ffffff;
+    }
+    span.linkContainer {
+      display: inline-block;
+      width: 100%;
+      height: 56px;
+      padding: 0 15px;
+    }
+  }
 `;
 
-export const Logo = styled.a`
+export const Logo = styled.div`
   position: absolute;
   top: 0;
   left: 0;
@@ -22,6 +34,7 @@ export const Logo = styled.a`
   line-height: 56px;
   text-align: center;
   font-size: 18px;
+  cursor: pointer;
 `;
 
 export const Nav = styled.div`
@@ -36,7 +49,7 @@ export const Nav = styled.div`
 export const NavItem = styled.div`
   height: 56px;
   line-height: 56px;
-  padding: 0 15px;
+  /* padding: 0 15px; */
   font-size: 16px;
   box-sizing: border-box;
   cursor: pointer;
@@ -132,11 +145,23 @@ export const Button = styled.div`
   font-size: 14px;
   cursor:pointer;
   &.write {
-    padding-left: 34px;
     background: #ec6149;
-    background-image: url(${iconWrite});
-    background-repeat: no-repeat;
-    background-size: 26px;
-    background-position: 6px;
+    padding-left: 0;
+    padding-right: 10px;
+    a {
+    color: #ffffff;
+    :hover {
+      color: #ffffff;
+    }
+    span.linkWrite {
+      display: inline-block;
+      height: 34px;
+      padding-left: 34px;
+      background-image: url(${iconWrite});
+      background-repeat: no-repeat;
+      background-size: 26px;
+      background-position: 6px;
+    }
+  }
   }
 `;

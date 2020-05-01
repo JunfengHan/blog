@@ -6,6 +6,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { CSSTransition } from 'react-transition-group';
 import { actionCreator, actionTypes } from './store';
+import { Link } from 'react-router-dom';
 import {
 	HeaderWrapper,
 	Logo,
@@ -23,12 +24,32 @@ import {
 const Header = (props) => {
 	return (
 		<HeaderWrapper>
-			<Logo>legendBlog</Logo>
+			<Logo onClick = { props.handleNavActiveHome }>
+				<Link to="/">
+					<span className="linkContainer" onClick = { props.handleNavActiveHome }>legendBlog</span>			
+				</Link>
+			</Logo>
 			<Nav>
-				<NavItem className = { props.home ? 'navActive left' : 'left'} onClick = { props.handleNavActiveHome }>Home</NavItem>
-				<NavItem className = { props.technology ? 'navActive left' : 'left' } onClick = { props.handleNavActiveTechnology }>Technology</NavItem>
-				<NavItem className = { props.project ? 'navActive left' : 'left'} onClick = { props.handleNavActiveProject }>Project</NavItem>
-				<NavItem className = { props.photo ? 'navActive left' : 'left'} onClick = { props.handleNavActivePhoto }>Photo&Video</NavItem>
+				<NavItem className = { props.home ? 'navActive left' : 'left'}>
+					<Link to="/">
+						<span className="linkContainer" onClick = { props.handleNavActiveHome }>Home</span>
+					</Link>
+				</NavItem>
+				<NavItem className = { props.technology ? 'navActive left' : 'left' } >
+					<Link to="/technology">
+						<span className="linkContainer" onClick = { props.handleNavActiveTechnology }>Technology</span>
+					</Link>
+				</NavItem>
+				<NavItem className = { props.project ? 'navActive left' : 'left'} >
+					<Link to="/project">
+						<span className="linkContainer" onClick = { props.handleNavActiveProject }>Project</span>
+					</Link>
+				</NavItem>
+				<NavItem className = { props.photo ? 'navActive left' : 'left'} >
+					<Link to="/photo">
+						<span className="linkContainer" onClick = { props.handleNavActivePhoto }>Photo&Video</span>
+					</Link>
+				</NavItem>
 				<SearchWraper>
 					<IconSearch className = { props.focused ? 'focused' : ''}></IconSearch>
 					<CSSTransition
@@ -46,8 +67,16 @@ const Header = (props) => {
 			</Nav>
 			<Addition>
 				<Button className="">Sign Up</Button>
-				<Button className="">Log In</Button>
-				<Button className="write">Write</Button>
+				{
+					props.isLogin ? 
+						<Button className="">Log Out</Button> :
+						<Button className=""><Link to="/login">Log In</Link></Button>
+				}
+				<Button className="write">
+					<Link to="/write">
+						<span className="linkWrite">Write</span>
+					</Link>
+				</Button>
 			</Addition>
 		</HeaderWrapper>
 	)
@@ -60,7 +89,8 @@ const mapStateToProps = (state) => {
 		home: state.navActiveReducer.home,
 		technology: state.navActiveReducer.technology,
 		project: state.navActiveReducer.project,
-		photo: state.navActiveReducer.photo
+		photo: state.navActiveReducer.photo,
+		isLogin: state.loginReducer.isLogin
 	}
 }
 
