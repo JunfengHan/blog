@@ -41,7 +41,7 @@ export const Nav = styled.div`
   min-width: 960px;
   height: 100%;
   padding-left: 160px;
-  padding-right: 240px;
+  padding-right: 340px;
   margin: 0 auto;
   box-sizing: border-box;
 `;
@@ -81,6 +81,14 @@ export const SearchWraper = styled.div`
   .searchSlide-exit-active {
     width: 160px;
   }
+`;
+
+export const UserInfo = styled.div`
+  float: right;
+  margin-left: 10px;
+  margin-right: 20px;
+  line-height: 56px;
+  font-size: 14px;
 `;
 
 export const NavSearch = styled.input.attrs({
@@ -144,6 +152,13 @@ export const Button = styled.div`
   border: 1px solid #ec6149;
   font-size: 14px;
   cursor:pointer;
+  &.signUp-exit {
+    transition: all .4s ease-out;
+  }
+  &.signUp-exit-active {
+    opacity: 0;
+    transition: opacity 200ms;
+  }
   &.write {
     background: #ec6149;
     padding-left: 0;

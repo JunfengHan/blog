@@ -11,7 +11,7 @@ import Technology from './pages/technology';
 import Project from './pages/project';
 import Photo from './pages/photo';
 import Write from './pages/write';
-import LogIn from './pages/login';
+import User from './pages/user';
 import store from './store';
 
 class App extends Component {
@@ -25,7 +25,7 @@ class App extends Component {
             <Route path='/technology' exact component={ Technology }></Route>
             <Route path='/project' exact component={ Project }></Route>
             <Route path='/photo' exact component={ Photo }></Route>
-            <Route path='/login' exact component={ LogIn }></Route>
+            <Route path='/user' exact component={ User }></Route>
             <Route path='/write' exact component={ Write }></Route>
           </Switch>
         </BrowserRouter>

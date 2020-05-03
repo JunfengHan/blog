@@ -5,7 +5,8 @@
  * 我们需要在生成 Store 时，将 Reducer 传入 createStore 方法
  * 4.reducer 是纯函数，不能对state做任何修改啊！！！有确定输出，必须返回一个确定的值
  */
-import { actionTypes } from './index'
+import { actionTypes } from './index';
+import { fromJS } from 'immutable';
 
 const focusState = {
 	focused: false,
@@ -17,6 +18,11 @@ const navState = {
 	project: false,
 	photo: false
 };
+
+// 定义不可改变的对象
+const signUpState = fromJS({
+  signUpStatus: false, // 注册状态,是否在注册页面
+});
 
 export const focusReducer = ( state = focusState, action) => {
 	let result = {};
@@ -79,4 +85,16 @@ export const navActiveReducer = ( state = navState, action) => {
 	}
 
 	return result;
+}
+
+export const signUpReducer = (state = signUpState, action) => {
+  // 接收index.js 中 mapDispatch 发出的dispatch 消息
+  switch(action.type) {
+    case actionTypes.SIGNUP:
+      return Object.assign({}, state, {
+        signUpStatus: action.signUpStatus,
+      });
+    default:
+      return state;
+  }
 }

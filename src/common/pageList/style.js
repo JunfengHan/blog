@@ -4,7 +4,6 @@ export const PageNumWrapper = styled.div`
   /* width: 100%; */
   height: 36px;
   padding: 3px 10px;
-  background: #dddddd;
   box-sizing: border-box;
   display: flex;
   justify-content: center;
@@ -17,6 +16,7 @@ export const PageButton = styled.button`
   color: #ffffff;
   background: #f08775;
   border: none;
+  outline: none;
   cursor: pointer;
 `;
 

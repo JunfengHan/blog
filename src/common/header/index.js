@@ -16,9 +16,9 @@ import {
 	NavSearch,
 	IconSearch,
 	Addition,
-	Button
+	Button,
+	UserInfo
 } from './style';
-
 
 // 没有state的无状态组件，性能更好
 const Header = (props) => {
@@ -66,11 +66,29 @@ const Header = (props) => {
 				</SearchWraper>
 			</Nav>
 			<Addition>
-				<Button className="">Sign Up</Button>
 				{
-					props.isLogin ? 
+					props.loginStatus === 3 ?
+						<UserInfo>
+							欢迎! { props.userInfo }
+						</UserInfo>:
+						<CSSTransition
+							in = { props.loginStatus !== 3 }
+							timeout = { 400 }
+							classNames = "signUp"
+						>
+							<Button
+								className=""
+								onClick={ props.handleSignUp }
+							><Link to="/user">Sign Up</Link></Button>
+						</CSSTransition>
+				}
+				{
+					props.loginStatus === 3 ?
 						<Button className="">Log Out</Button> :
-						<Button className=""><Link to="/login">Log In</Link></Button>
+						<Button 
+							className=""
+							onClick={ props.handleLogin}
+						><Link to="/user">Log In</Link></Button>
 				}
 				<Button className="write">
 					<Link to="/write">
@@ -90,7 +108,9 @@ const mapStateToProps = (state) => {
 		technology: state.navActiveReducer.technology,
 		project: state.navActiveReducer.project,
 		photo: state.navActiveReducer.photo,
-		isLogin: state.loginReducer.isLogin
+		loginStatus: state.loginReducer.loginStatus,
+		userInfo: state.loginReducer.userInfo,
+		signUp: state.signUpReducer.signUpStatus,
 	}
 }
 
@@ -105,6 +125,14 @@ const mapDispatchToProps = (dispatch) => {
 		handleNavActivePhoto: actionCreator(actionTypes.NAV_ACTIVE_PHOTO, dispatch),
 		handleInputFocus: () => dispatch({ type: actionTypes.SEARCH_FOCUS }),
 		handleInputBlur: () => dispatch({ type: actionTypes.SEARCH_BLUR }),
+		handleSignUp: () => dispatch({
+			type: actionTypes.SIGNUP,
+			signUpStatus: true
+		}),
+		handleLogin: () => dispatch({
+			type: actionTypes.SIGNUP,
+			signUpStatus: false
+		}),
 	}
 }
 

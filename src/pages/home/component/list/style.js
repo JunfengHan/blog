@@ -9,6 +9,7 @@ import updateTime from '../../../../statics/iconfont/updateTime.svg';
 export const ListWrapper = styled.div`
   width: 100%;
   box-sizing: border-box;
+  margin-bottom: 20px;
 `;
 
 export const ListItem = styled.div`
